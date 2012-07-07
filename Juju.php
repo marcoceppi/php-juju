@@ -13,7 +13,7 @@
 class Juju_API
 {
 	public static $juju_bin = "/usr/bin/juju";
-	private static $environments;
+	protected static $environments;
 	
 	public static function status($environment)
 	{
