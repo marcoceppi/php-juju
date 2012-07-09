@@ -13,7 +13,6 @@
 class Juju_API
 {
 	public static $juju_bin = "/usr/bin/juju";
-	protected static $environments;
 	
 	public static function status($environment)
 	{
@@ -46,16 +45,11 @@ class Juju_API
 	 */
 	public static function environments($user = NULL)
 	{
-		if( !is_array(static::$environments) )
-		{
-			$user = array_shift(posix_getpwuid(posix_geteuid()));
-			$env_file = file_get_contents('/home/' . $user . '/.juju/environments.yaml');
-			$juju_envs = yaml_parse($env_file);
-			
-			static::$environments = $juju_envs['environments'];
-		}
-		
-		return static::$environments;
+		$user = array_shift(posix_getpwuid(posix_geteuid()));
+		$env_file = file_get_contents('/home/' . $user . '/.juju/environments.yaml');
+		$juju_envs = yaml_parse($env_file);
+
+		return $juju_envs['environments'];
 	}
 	
 	public static function environment_exists($environment)
