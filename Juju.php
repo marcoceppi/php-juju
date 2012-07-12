@@ -14,9 +14,9 @@ class Juju_API
 {
 	public static $juju_bin = "/usr/bin/juju";
 	
-	public static function status($environment)
+	public static function status($environment, $format = 'json')
 	{
-		return json_decode(static::exec(array('status', 'e' => $environment, 'format' => 'json')), true);
+		return ($format == 'json') ? json_decode(static::exec(array('status', 'e' => $environment, 'format' => $format)), true) : static::exec(array('status', 'e' => $environment, 'format' => $format));
 	}
 	
 	public static function environment($environment, $settings = array())
